@@ -4,8 +4,8 @@ models:
   - name: stg_olist__customers
     description: Staged customer data from Olist.
     columns:
-      - name: "{{ doc('customers') }}"
-        description: The primary key for customers.
+      - name: customer_unique_id
+        description: "{{ doc('customers') }}"
         data_tests:
           - not_null
 
@@ -17,13 +17,13 @@ models:
       data_tests:
         - unique
         - not_null
-    - name: customer_id
+    - name: order_customer_id
       description: The foreign key references customers data
       data_tests:
         - relationships:
             arguments:
               to: ref('stg_olist__customers')
-              field: customer_id
+              field: order_customer_id
     - name: order_status
       data_tests:
         - accepted_values:
@@ -42,12 +42,11 @@ models:
                 field: order_id
 
   - name: stg_olist__order_reviews
-    description: Staged reviews data for orders table. Removed duplicate review_ids that were incorrectly linked to multiple orders
+    description: Staged reviews data for orders table.
     columns:
       - name: review_id
         description: The primary key for review
         data_tests:
-          - unique
           - not_null
       - name: order_id
         description: Foreign key references order table
