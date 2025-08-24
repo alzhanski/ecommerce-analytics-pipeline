@@ -11,7 +11,7 @@ orders as (
     select
 
         order_id,
-        customer_id,
+        customer_id as order_customer_id,
         order_status,
         order_purchase_timestamp as purchased_date,
         order_approved_at as approved_date,

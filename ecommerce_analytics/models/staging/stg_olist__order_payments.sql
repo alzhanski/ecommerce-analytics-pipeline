@@ -13,9 +13,8 @@ order_payments as (
         order_id,
         payment_sequential,
         CASE WHEN payment_type = 'boleto' THEN 'bank_ticket' ELSE payment_type END,
-        payment_installments as installments,
-        round((payment_value / 5.43)::numeric, 2) as paid_amount_us
-
+        payment_installments,
+        payment_value
     from source
 )
 
