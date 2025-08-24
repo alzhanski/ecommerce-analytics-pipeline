@@ -6,14 +6,22 @@ source as (
 
 ),
 
+translations as (
+
+    select * from {{ source('raw', 'product_category_name_translation') }}
+
+),
+
 products as (
 
     select
 
         product_id,
-        COALESCE(product_category_name, 'Unknown') as category
+        coalesce(t.product_category_name_english, p.product_category_name, 'unknown') as category
 
-    from source
+    from source p 
+    left join translations t 
+        on p.product_category_name = t.product_category_name
 
 )
 
