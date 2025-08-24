@@ -10,9 +10,9 @@ geolocation as (
 
     select
     
-        geolocation_zip_code_prefix as geolocation_zipcode,
-        geolocation_city as city,
-        geolocation_state as state
+        geolocation_zip_code_prefix as geo_zipcode,
+        geolocation_city as geo_city,
+        geolocation_state as geo_state
 
     from source
 )
