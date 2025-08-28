@@ -22,7 +22,6 @@ clean-targets:         # directories to be removed by `dbt clean`
   - "target"
   - "dbt_packages"
 
-
 # Configuring models
 # Full documentation: https://docs.getdbt.com/docs/configuring-models
 
@@ -30,7 +29,13 @@ clean-targets:         # directories to be removed by `dbt clean`
 # directory as views. These settings can be overridden in the individual model
 # files using the `{{ config(...) }}` macro.
 models:
-  staging:
-      +materialized: view
-      +schema: dbt_dev
-  
+  ecommerce_analytics:
+    staging:
+        +materialized: view
+        +schema: staging
+    intermediate:
+        +materialized: table
+        +schema: intermediate
+    marts:
+        +materialized: table
+        +schema: marts
