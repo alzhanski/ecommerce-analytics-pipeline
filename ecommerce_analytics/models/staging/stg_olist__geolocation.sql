@@ -10,11 +10,12 @@ geolocation as (
 
     select
     
-        geolocation_zip_code_prefix as geo_zipcode,
-        geolocation_city as geo_city,
-        geolocation_state as geo_state
+        geolocation_zip_code_prefix as geolocation_zipcode,
+        avg(geolocation_lat) as latitude,
+        avg(geolocation_lng) as longitude
 
     from source
+    group by geolocation_zip_code_prefix
 )
 
 select * from geolocation
