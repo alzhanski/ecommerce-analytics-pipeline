@@ -9,6 +9,7 @@ customers as (
 orders as (
 
     select * from {{ ref('orders')}}
+    -- Filter only delivered orders
     where order_status = 'delivered' 
 ),
 
