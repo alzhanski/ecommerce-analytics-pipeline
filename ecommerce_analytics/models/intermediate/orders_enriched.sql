@@ -36,9 +36,9 @@ orders_enriched as (
 
         -- Date details
         o.purchased_date,
-        extract(year from o.purchased_date) as order_year,
-        extract(month from o.purchased_date) as order_month,
-        extract(quarter from o.purchased_date) as order_quarter,
+        extract(year from o.purchased_date)::int as order_year,
+        extract(month from o.purchased_date)::int as order_month,
+        extract(quarter from o.purchased_date)::int as order_quarter,
         
         -- Customer details
         c.customer_unique_id,
