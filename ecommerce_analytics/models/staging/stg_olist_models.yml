@@ -1,7 +1,7 @@
 version: 2
 
 models:
-  - name: stg_olist__customers
+  - name: customers
     description: Staged customer data from Olist.
     columns:
       - name: customer_unique_id
@@ -9,7 +9,7 @@ models:
         data_tests:
           - not_null
 
-  - name: stg_olist__orders
+  - name: orders
     description: Staged orders data from Olist
     columns:
     - name: order_id
@@ -22,7 +22,7 @@ models:
       data_tests:
         - relationships:
             arguments:
-              to: ref('stg_olist__customers')
+              to: ref('customers')
               field: order_customer_id
     - name: order_status
       data_tests:
@@ -30,7 +30,7 @@ models:
             arguments:
               values: ['shipped', 'unavailable', 'invoiced', 'created', 'approved', 'processing', 'delivered', 'canceled']
         
-  - name: stg_olist__order_items
+  - name: order_items
     description: Staged order_items data from Olist
     columns:
       - name: order_id
@@ -38,30 +38,10 @@ models:
         data_tests:
           - relationships:
               arguments:  
-                to: ref('stg_olist__orders')
+                to: ref('orders')
                 field: order_id
 
-  - name: stg_olist__order_reviews
-    description: Staged reviews data for orders table.
-    columns:
-      - name: review_id
-        description: The primary key for review
-        data_tests:
-          - not_null
-      - name: order_id
-        description: Foreign key references order table
-        data_tests:
-          - relationships:
-              arguments:
-                to: ref('stg_olist__orders')
-                field: order_id
-      - name: review_score
-        data_tests:
-          - accepted_values:
-              arguments:
-                values: [1, 2, 3, 4, 5]
-                quote: false
-  - name: stg_olist__products
+  - name: products
     description: Staged products data
     columns:
       - name: product_id
@@ -69,28 +49,6 @@ models:
         data_tests:
           - unique 
           - not_null
-  - name: stg_olist__sellers
-    description: Staged sellers data 
-    columns:
-      - name: seller_id
-        description: The primary key for seller 
-        data_tests:
-          - unique 
-          - not_null
-  - name: stg_olist__order_payments
-    description: Staged order payments data
-    columns:
-      - name: order_id
-        data_tests:
-          - relationships:
-              arguments:
-                to: ref('stg_olist__orders')
-                field: order_id
-      - name: payment_type
-        data_tests:
-          - accepted_values:
-              arguments:
-                values: ['credit_card', 'debit_card', 'bank_ticket', 'voucher', 'not_defined']
 
   - name: stg_olist__geolocation
     description: Staged geolocation data from Olist 

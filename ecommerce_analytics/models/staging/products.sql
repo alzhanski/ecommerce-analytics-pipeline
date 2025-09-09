@@ -17,6 +17,7 @@ products as (
     select
 
         product_id,
+        -- Map category translation from Portuguese to English (if no category name, then 'unknown')
         coalesce(t.product_category_name_english, p.product_category_name, 'unknown') as category
 
     from source p 
