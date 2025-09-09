@@ -8,7 +8,6 @@ models:
         description: "{{ doc('customers') }}"
         data_tests:
           - not_null
-
   - name: orders
     description: Staged orders data from Olist
     columns:
@@ -50,5 +49,3 @@ models:
           - unique 
           - not_null
 
-  - name: stg_olist__geolocation
-    description: Staged geolocation data from Olist 
