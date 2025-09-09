@@ -13,7 +13,7 @@ orders as (
         order_id,
         customer_id as order_customer_id,
         order_status,
-        order_purchase_timestamp as purchased_date,
+        order_purchase_timestamp as purchased_date
     
     from source
 
