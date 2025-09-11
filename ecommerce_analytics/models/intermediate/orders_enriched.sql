@@ -47,7 +47,7 @@ orders_enriched as (
 
         -- Product category
         p.product_id,
-        p.category,
+        p.category as subcategory,
         case  
             -- Fashion & Apparel
             when p.category in (
@@ -117,7 +117,7 @@ orders_enriched as (
             ) then 'Specialty & Other'
             
             else 'Uncategorized'
-        end as category_group
+        end as category
 
     from orders o
     left join customers c on o.order_customer_id = c.order_customer_id
