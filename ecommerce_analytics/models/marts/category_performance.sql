@@ -9,7 +9,8 @@ orders_enriched as (
 category_performance as (
     
     select
-        category_group,
+        category,
+        subcategory,
         order_year,
         order_quarter,
         order_month,
@@ -24,7 +25,7 @@ category_performance as (
         round(sum(total_paid)::decimal / count(*), 2) as avg_item_value
     
     from orders_enriched
-    group by category_group, order_year, order_quarter, order_month
+    group by category, subcategory, order_year, order_quarter, order_month
 
 )
 
