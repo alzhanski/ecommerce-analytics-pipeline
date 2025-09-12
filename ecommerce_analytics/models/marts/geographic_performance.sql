@@ -9,6 +9,7 @@ orders_enriched as (
 geographic_performance as (
 
     select
+        'Brazil' as country,
         customer_state,
         order_year,
         order_quarter,
