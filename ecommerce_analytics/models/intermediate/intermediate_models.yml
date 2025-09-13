@@ -1,0 +1,68 @@
+version: 2
+
+models:
+  - name: orders_enriched
+    description: Core analytical model combining orders, customers, products with business logic and category mapping
+    columns:
+      - name: order_id
+        description: Unique identifier for each order
+        data_tests:
+          - not_null
+      - name: order_customer_id
+        description: Customer identifier for this order
+        data_tests:
+          - not_null
+      - name: item_sequence
+        description: Sequential number of this item within the order
+        data_tests:
+          - not_null
+      - name: total_paid
+        description: Total amount paid for this item (price + freight)
+        data_tests:
+          - not_null
+      - name: purchased_date
+        description: Date and time when the order was placed
+        data_tests:
+          - not_null
+      - name: order_year
+        description: Year extracted from purchase date
+        data_tests:
+          - not_null
+      - name: order_month
+        description: Month extracted from purchase date (1-12)
+        data_tests:
+          - not_null
+          - accepted_values:
+              values: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+      - name: order_quarter
+        description: Quarter extracted from purchase date (1-4)
+        data_tests:
+          - not_null
+          - accepted_values:
+              values: [1, 2, 3, 4]
+      - name: customer_unique_id
+        description: Unique customer identifier across the platform
+        data_tests:
+          - not_null
+      - name: customer_city
+        description: City where the customer is located
+        data_tests:
+          - not_null
+      - name: customer_state
+        description: Brazilian state where the customer is located
+        data_tests:
+          - not_null
+      - name: product_id
+        description: Unique identifier for the product
+        data_tests:
+          - not_null
+      - name: subcategory
+        description: Original detailed product category from Olist
+        data_tests:
+          - not_null
+      - name: category
+        description: Consolidated high-level product category (11 categories mapped from 80+ subcategories)
+        data_tests:
+          - not_null
+          - accepted_values:
+              values: ['Fashion & Apparel', 'Home & Furniture', 'Electronics & Technology', 'Construction & Home Improvement', 'Health & Personal Care', 'Books & Media', 'Sports & Leisure', 'Food & Beverages', 'Automotive & Transportation', 'Business & Industrial', 'Specialty & Other', 'Uncategorized']
