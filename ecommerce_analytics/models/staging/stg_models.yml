@@ -1,0 +1,96 @@
+version: 2
+
+models:
+  - name: customers
+    description: Staged customer data from Olist with cleaned and standardized fields.
+    columns:
+      - name: customer_unique_id
+        description: "{{ doc('customers') }}"
+        data_tests:
+          - not_null
+      - name: order_customer_id
+        description: Customer identifier used in orders (one customer can have multiple IDs)
+        data_tests:
+          - not_null
+      - name: customer_zipcode
+        description: Customer ZIP code prefix (first 5 digits)
+        data_tests:
+          - not_null
+      - name: customer_city
+        description: Customer city name
+        data_tests:
+          - not_null
+      - name: customer_state
+        description: Brazilian state abbreviation (2 letters)
+        data_tests:
+          - not_null
+
+  - name: orders
+    description: Staged orders data from Olist with cleaned timestamps and status validation
+    columns:
+    - name: order_id
+      description: Unique identifier for each order (primary key)
+      data_tests:
+        - unique
+        - not_null
+    - name: order_customer_id
+      description: Customer identifier linking to customers table
+      data_tests:
+        - not_null
+        - relationships:
+            arguments:
+              to: ref('customers')
+              field: order_customer_id
+    - name: order_status
+      description: Current status of the order in the fulfillment process
+      data_tests:
+        - not_null
+        - accepted_values:
+            arguments:
+              values: ['shipped', 'unavailable', 'invoiced', 'created', 'approved', 'processing', 'delivered', 'canceled']
+    - name: purchased_date
+      description: Timestamp when the order was placed by the customer
+      data_tests:
+        - not_null
+        
+  - name: order_items
+    description: Staged order items data with calculated total paid amounts
+    columns:
+      - name: order_id
+        description: Order identifier linking to orders table
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:  
+                to: ref('orders')
+                field: order_id
+      - name: order_item_id
+        description: Sequential number identifying each item within an order
+        data_tests:
+          - not_null
+      - name: product_id
+        description: Product identifier linking to products table
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('products')
+                field: product_id
+      - name: total_paid
+        description: Total amount paid for this item (price + freight)
+        data_tests:
+          - not_null
+
+  - name: products
+    description: Staged products data with translated category names from Portuguese to English
+    columns:
+      - name: product_id
+        description: Unique identifier for each product (primary key)
+        data_tests:
+          - unique 
+          - not_null
+      - name: category
+        description: Product category name in English (translated from Portuguese)
+        data_tests:
+          - not_null
+
