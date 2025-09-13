@@ -28,8 +28,8 @@ Using the **Olist Brazilian e-commerce dataset** from Kaggle, I built an end-to-
 Raw Data (CSV Seeds)           Staging Layer (Views)         Intermediate Layer (Tables)    Marts Layer (Tables)
 ├── customers                  ├── customers                 ├── orders_enriched            ├── category_performance
 ├── orders                     ├── orders                                                   └── geographic_performance  
-├── order_items               ├── order_items
-├── products                  └── products
+├── order_items                ├── order_items
+├── products                   └── products
 ├── payments
 ├── reviews
 ├── sellers
@@ -59,7 +59,17 @@ docker-compose up -d
 3. **Set up dbt profile** (create `~/.dbt/profiles.yml`)
 ```yaml
 ecommerce_analytics:
+  target: dev
   outputs:
+    raw:
+      type: postgres
+      host: localhost
+      user: root
+      password: root
+      port: 5432
+      dbname: ecommerce
+      schema: raw           # Seeds go to raw schema
+      threads: 4
     dev:
       type: postgres
       host: localhost
@@ -67,9 +77,8 @@ ecommerce_analytics:
       password: root
       port: 5432
       dbname: ecommerce
-      schema: raw
+      schema: dbt_dev       # Models go to dbt_dev_* schemas
       threads: 4
-  target: dev
 ```
 
 4. **Run the data pipeline**
@@ -119,14 +128,14 @@ dbt test          # Validate data quality
 
 ```
 retail-insights-factory/
-├── docker-compose.yml                 # Database services
+├── docker-compose.yml                # Database services
 ├── ecommerce_analytics/              # dbt project
 │   ├── models/
 │   │   ├── staging/                  # Data cleaning & standardization
 │   │   ├── intermediate/             # Business logic transformations
 │   │   └── marts/                    # Analytics ready tables
 │   ├── seeds/                        # Raw CSV data files
-│   └── dbt_project.yml              # dbt configuration
+│   └── dbt_project.yml               # dbt configuration
 └── README.md                         # Project documentation
 ```
 
