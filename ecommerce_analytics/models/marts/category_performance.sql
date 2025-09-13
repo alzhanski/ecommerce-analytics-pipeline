@@ -20,7 +20,7 @@ category_performance as (
         count(distinct order_id) as total_orders,
         count(*) as total_items_sold,
 
-        -- Calculated metrics
+        -- Calculated business metrics
         round(sum(total_paid)::decimal / count(distinct order_id), 2) as avg_order_value,
         round(sum(total_paid)::decimal / count(*), 2) as avg_item_value
     
