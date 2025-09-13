@@ -1,0 +1,175 @@
+version: 2
+
+models:
+  - name: category_performance
+    description: Product category performance metrics aggregated by time dimensions for business analysis
+    columns:
+      - name: category
+        description: High-level product category (11 consolidated categories from 80+ subcategories)
+        data_tests:
+          - not_null
+      - name: subcategory
+        description: Original detailed product category from Olist dataset
+        data_tests:
+          - not_null
+      - name: order_year
+        description: Year when the order was placed
+        data_tests:
+          - not_null
+      - name: order_quarter
+        description: Quarter when the order was placed (1-4)
+        data_tests:
+          - not_null
+          - accepted_values:
+              values: [1, 2, 3, 4]
+      - name: order_month
+        description: Month when the order was placed (1-12)
+        data_tests:
+          - not_null
+          - accepted_values:
+              values: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+      - name: total_revenue
+        description: Total revenue generated for this category-time combination
+        data_tests:
+          - not_null
+      - name: total_orders
+        description: Number of distinct orders for this category-time combination
+        data_tests:
+          - not_null
+      - name: total_items_sold
+        description: Total number of items sold for this category-time combination
+        data_tests:
+          - not_null
+      - name: avg_order_value
+        description: Average order value for this category-time combination
+        data_tests:
+          - not_null
+      - name: avg_item_value
+        description: Average value per item for this category-time combination
+        data_tests:
+          - not_null
+
+  - name: geographic_performance
+    description: Geographic performance metrics by Brazilian state aggregated by time dimensions
+    columns:
+      - name: country
+        description: Country name (always 'Brazil' for this dataset)
+        data_tests:
+          - not_null
+          - accepted_values:
+              values: ['Brazil']
+      - name: customer_state
+        description: Brazilian state abbreviation (2 letters)
+        data_tests:
+          - not_null
+      - name: order_year
+        description: Year when the order was placed
+        data_tests:
+          - not_null
+      - name: order_quarter
+        description: Quarter when the order was placed (1-4)
+        data_tests:
+          - not_null
+          - accepted_values:
+              values: [1, 2, 3, 4]
+      - name: total_revenue
+        description: Total revenue generated for this state-time combination
+        data_tests:
+          - not_null
+      - name: total_orders
+        description: Number of distinct orders for this state-time combination
+        data_tests:
+          - not_null
+      - name: unique_customers
+        description: Number of unique customers for this state-time combination
+        data_tests:
+          - not_null
+      - name: total_items_sold
+        description: Total number of items sold for this state-time combination
+        data_tests:
+          - not_null
+      - name: avg_order_value
+        description: Average order value for this state-time combination
+        data_tests:
+          - not_null
+      - name: avg_customer_value
+        description: Average total spent per customer for this state-time combination
+        data_tests:
+          - not_null
+      - name: orders_per_customer
+        description: Average number of orders per customer for this state-time combination
+        data_tests:
+          - not_null
+
+  - name: customer_segments
+    description: RFM-based customer segmentation with behavioral insights and business recommendations
+    columns:
+      - name: customer_unique_id
+        description: Unique customer identifier
+        data_tests:
+          - unique
+          - not_null
+      - name: customer_state
+        description: Brazilian state where customer is located
+        data_tests:
+          - not_null
+      - name: customer_city
+        description: City where customer is located
+        data_tests:
+          - not_null
+      - name: days_since_last_order
+        description: Number of days since customer's last order (as of dataset max date)
+        data_tests:
+          - not_null
+      - name: total_orders
+        description: Total number of orders placed by this customer
+        data_tests:
+          - not_null
+      - name: total_spent
+        description: Total amount spent by this customer across all orders
+        data_tests:
+          - not_null
+      - name: first_order_date
+        description: Date of customer's first order
+        data_tests:
+          - not_null
+      - name: last_order_date
+        description: Date of customer's most recent order
+        data_tests:
+          - not_null
+      - name: avg_order_value
+        description: Average order value for this customer
+        data_tests:
+          - not_null
+      - name: recency_score
+        description: RFM recency score (1-5, 5=most recent)
+        data_tests:
+          - not_null
+          - accepted_values:
+              values: [1, 2, 3, 4, 5]
+      - name: frequency_score
+        description: RFM frequency score (1-5, 5=most frequent)
+        data_tests:
+          - not_null
+          - accepted_values:
+              values: [1, 2, 3, 4, 5]
+      - name: monetary_score
+        description: RFM monetary score (1-5, 5=highest spend)
+        data_tests:
+          - not_null
+          - accepted_values:
+              values: [1, 2, 3, 4, 5]
+      - name: rfm_combined_score
+        description: Sum of RFM scores (3-15, higher is better)
+        data_tests:
+          - not_null
+      - name: customer_segment
+        description: Business-friendly customer segment based on RFM analysis
+        data_tests:
+          - not_null
+          - accepted_values:
+              values: ['Champions', 'Loyal Customers', 'New Customers', 'Potential Loyalists', 'Big Spenders', 'At Risk', 'Cannot Lose Them', 'Hibernating', 'Lost', 'Others']
+      - name: segment_description
+        description: Detailed description of the customer segment for business users
+        data_tests:
+          - not_null
