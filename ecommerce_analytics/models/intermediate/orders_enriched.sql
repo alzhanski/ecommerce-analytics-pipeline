@@ -9,8 +9,9 @@ customers as (
 orders as (
 
     select * from {{ ref('orders')}}
-    -- Filter only delivered orders
-    where order_status = 'delivered' 
+    -- Filter only delivered orders to exclude cancelled/pending transactions
+    -- that would skew revenue and performance metrics
+    where order_status = 'delivered'
 ),
 
 order_items as (
@@ -39,7 +40,7 @@ orders_enriched as (
         extract(year from o.purchased_date)::int as order_year,
         extract(month from o.purchased_date)::int as order_month,
         extract(quarter from o.purchased_date)::int as order_quarter,
-        
+
         -- Customer details
         c.customer_unique_id,
         c.customer_city,
@@ -48,7 +49,9 @@ orders_enriched as (
         -- Product category
         p.product_id,
         p.category as subcategory,
-        case  
+        -- Business logic: Group 74 subcategories into 11 main categories
+        -- for executive-level reporting and simplified analysis
+        case
             -- Fashion & Apparel
             when p.category in (
                 'fashion_bags_accessories', 'fashion_childrens_clothes', 'fashion_female_clothing',
