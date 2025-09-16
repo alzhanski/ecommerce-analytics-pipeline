@@ -65,4 +65,16 @@ models:
         data_tests:
           - not_null
           - accepted_values:
-              values: ['Fashion & Apparel', 'Home & Furniture', 'Electronics & Technology', 'Construction & Home Improvement', 'Health & Personal Care', 'Books & Media', 'Sports & Leisure', 'Food & Beverages', 'Automotive & Transportation', 'Business & Industrial', 'Specialty & Other', 'Uncategorized']
+              values: [
+                        'Fashion & Apparel', 
+                        'Home & Furniture', 
+                        'Electronics & Technology', 
+                        'Construction & Home Improvement', 
+                        'Health & Personal Care', 
+                        'Books & Media', 
+                        'Sports & Leisure', 
+                        'Food & Beverages', 
+                        'Automotive & Transportation', 
+                        'Business & Industrial', 
+                        'Specialty & Other', 
+                        'Uncategorized']
