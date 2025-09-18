@@ -101,9 +101,9 @@ dbt test          # Validate data quality
 - **pgAdmin**: http://localhost:8080 (admin@admin.com / admin)
 - **PostgreSQL**: localhost:5432 (root / root)
 
-## 📊 Dashboard Screenshots
+## 📊 Dashboard Screenshot
 
-![alt text](sales_dashboard.png)
+![alt text][https://github.com/alzhanski/ecommerce-analytics-pipeline/blob/main/images/sales_dashboard.png]
 
 ## 📋 Data Models
 
@@ -185,3 +185,5 @@ The analytics pipeline enables stakeholders to:
 
 **Tech Stack:** PostgreSQL • dbt • Docker • PowerBI  
 **Dataset:** 100K+ Brazilian e-commerce transactions from Olist
+
+[def]: sales_dashboard.png
