@@ -48,12 +48,12 @@ models:
   - name: geographic_performance
     description: Geographic performance metrics by Brazilian state aggregated by time dimensions
     columns:
-      - name: country
-        description: Country name (always 'Brazil' for this dataset)
+      - name: region
+        description: Brazilian region where the customer is located
         data_tests:
           - not_null
           - accepted_values:
-              values: ['Brazil']
+              values: ['North', 'Northeast', 'Central-West', 'Southeast', 'South']
       - name: customer_state
         description: Brazilian state abbreviation (2 letters)
         data_tests:
@@ -86,9 +86,5 @@ models:
           - not_null
       - name: avg_customer_value
         description: Average total spent per customer for this state-time combination
-        data_tests:
-          - not_null
-      - name: orders_per_customer
-        description: Average number of orders per customer for this state-time combination
         data_tests:
           - not_null
