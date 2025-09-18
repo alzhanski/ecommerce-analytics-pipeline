@@ -103,7 +103,7 @@ dbt test          # Validate data quality
 
 ## 📊 Dashboard Screenshot
 
-![alt text][https://github.com/alzhanski/ecommerce-analytics-pipeline/blob/main/images/sales_dashboard.png]
+![alt text](https://github.com/alzhanski/ecommerce-analytics-pipeline/blob/main/images/sales_dashboard.png)
 
 ## 📋 Data Models
 
