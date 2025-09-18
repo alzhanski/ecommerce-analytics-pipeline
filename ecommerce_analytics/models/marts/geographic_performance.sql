@@ -9,8 +9,10 @@ orders_enriched as (
 geographic_performance as (
 
     select
-        'Brazil' as country,
+        -- Geographic fields
+        customer_city,
         customer_state,
+        region,
         order_year,
         order_quarter,
         order_month,
@@ -27,7 +29,7 @@ geographic_performance as (
         
 
     from orders_enriched
-    group by customer_state, order_year, order_quarter, order_month
+    group by customer_state, customer_city, region, order_year, order_quarter, order_month
 
 )
 
