@@ -119,10 +119,9 @@ dbt test          # Validate data quality
 
 | Field | Description | Business Value |
 |-------|-------------|----------------|
-| `customer_type` | 'first_time' vs 'repeat' customer | Customer acquisition vs retention analysis |
 | `category` | 11 consolidated product categories | Executive-level category performance tracking |
 | `avg_order_value` | Average revenue per order | Pricing and promotional strategy insights |
-| `orders_per_customer` | Purchase frequency by geography | Market maturity and expansion opportunities |
+
 
 ## 🛠️ Technical Implementation
 
