@@ -161,7 +161,7 @@ ecommerce-analytics-pipeline/
 - Git for version control and collaboration
 
 **Advanced SQL & Data Modeling:**
-- Complex multi-table JOINs and window functions
+- Complex multi-table JOINs
 - Business logic implementation with CASE statements
 - Aggregation strategies for analytical workloads
 - Performance optimization for dashboard queries
