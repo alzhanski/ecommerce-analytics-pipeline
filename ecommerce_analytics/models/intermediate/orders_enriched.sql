@@ -43,8 +43,28 @@ orders_enriched as (
 
         -- Customer details
         c.customer_unique_id,
-        c.customer_city,
+        initcap(c.customer_city) as customer_city,
         c.customer_state,
+
+        -- Group states into 5 main Brazil regions
+        case
+
+            when c.customer_state in ('AC', 'AM', 'AP', 'PA', 'RR', 'RO', 'TO')
+                then 'North'
+
+            when c.customer_state in ('AL', 'BA', 'CE', 'MA', 'PB', 'PE', 'PI', 'RN', 'SE')
+                then 'Northeast'
+            
+            when c.customer_state in ('DF', 'GO', 'MT', 'MS')
+                then 'Central-West'
+            
+            when c.customer_state in ('ES', 'MG', 'RJ', 'SP')
+                then 'Southeast'
+            
+            when c.customer_state in ('PR', 'RS', 'SC')
+                then 'South'
+        
+        end as region,
 
         -- Product category
         p.product_id,
