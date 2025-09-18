@@ -52,6 +52,12 @@ models:
         description: Brazilian state where the customer is located
         data_tests:
           - not_null
+      - name: region
+        description: Brazilian region where the customer is located
+        data_tests:
+          - not_null
+          - accepted_values:
+              values: ['North', 'Northeast', 'Central-West', 'Southeast', 'South']
       - name: product_id
         description: Unique identifier for the product
         data_tests:
